@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "MODEM_CLARO",
+    "nombre": "Modem Claro",
+    "ISP": "Claro",
+    "Ip_publica": "Pendiente por definir",
+    "descripcion": "Dispositivo módem de enlace a internet principal provisto por el ISP Claro.",
+    "modelo": "Pendiente por definir"
+  },
+  {
+    "Id": "MODEM_MOVISTAR",
+    "nombre": "Modem Movistar",
+    "ISP": "Movistar",
+    "Ip_publica": "Pendiente por definir",
+    "descripcion": "Dispositivo módem de enlace a internet secundario provisto por el ISP Movistar.",
+    "modelo": "Pendiente por definir"
+  }
+]

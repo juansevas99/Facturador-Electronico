@@ -1,0 +1,16 @@
+## 4.2. Periodo 2: Escalabilidad y Venta a Clientes (Modalidad "Software Adquirido")
+En esta fase, ustedes actúan como proveedores de software (fábrica de tecnología), pero **no** como Proveedores Tecnológicos ante la ley. La responsabilidad fiscal se atomiza en cada cliente final.
+
+### A. Requerimientos Tributarios (Multi-Inquilino)
+* **Habilitación Individualizada por Cliente:** El Core debe estar diseñado para gestionar un `TestSetID` independiente por cada cliente nuevo que compre el sistema. El proceso de pruebas ante la DIAN se ejecuta de forma aislada por cada NIT adquirente.
+* **Registro de Software de Terceros:** El software se registrará en el portal MUISCA de cada cliente digitando el **NIT de su empresa de desarrollo** como el "Proveedor de la solución de software". 
+* **Aislamiento de Resoluciones:** El sistema debe garantizar que los rangos de numeración, llaves técnicas y prefijos de un cliente (Tenant A) jamás se mezclen o sean accesibles por otro cliente (Tenant B), evitando saltos de numeración cruzados que generarían sanciones tributarias graves por parte de la DIAN.
+
+### B. Requerimientos Jurídicos (Contratos y Blindaje de Responsabilidad)
+* **Cláusula de Exención de Responsabilidad Fiscal (Estatuto Tributario Art. 616-4):** Los contratos de licenciamiento del software deben especificar que la empresa desarrolladora entrega una herramienta tecnológica (un "lapicero electrónico") y que **el único obligado tributario ante la DIAN es el cliente final**. Cualquier sanción por extemporaneidad, datos erróneos o evasión es responsabilidad exclusiva del contribuyente (el cliente).
+* **Acuerdo de Nivel de Servicio (SLA) Comercial:** El contrato debe definir un SLA de disponibilidad de la infraestructura local/nube de ustedes (ej. 99.5%). Debe aclararse jurídicamente que las caídas masivas de los servidores de la DIAN o la pérdida de internet en el establecimiento del cliente (ICG *on-premise*) suspenden los términos del SLA, obligando al cliente a activar sus propios mecanismos de contingencia manual.
+
+### C. Requerimientos Legales y de Seguridad Corporativa
+* **Custodia Cifrada de Firmas Digitales de Terceros:** Jurídicamente, ustedes almacenarán la propiedad intelectual y la llave criptográfica privada (firma digital) de sus clientes. El requerimiento legal exige que el software encripte estos archivos (bajo estándares como AES-256 o en bóvedas criptográficas seguras). El acceso no autorizado a estas firmas por fallas de seguridad de su software podría acarrear demandas civiles por suplantación de identidad.
+* **Habeas Data Multi-Inquilino:** Al almacenar datos de miles de clientes de sus clientes en sus servidores, la plataforma debe registrar las bases de datos ante la Superintendencia de Industria y Comercio (SIC). El visualizador web debe obligar al usuario administrador de cada cliente a aceptar los Términos de Servicio y la Política de Tratamiento de Datos antes de ingresar por primera vez.
+* **Auditoría Forense Fiscal:** La base de datos de trazabilidad en el Periodo 2 debe ser inmutable. En caso de inspección de la DIAN a uno de sus clientes, el visualizador debe permitir exportar los metadatos completos que demuestren que el software procesó y envió el documento a tiempo, blindando tanto al cliente como a ustedes ante disputas de tiempos de entrega.

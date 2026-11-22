@@ -1,0 +1,55 @@
+{
+    "SRV-BD-01": {
+        "App1": {
+            "nombre": "Microsoft SQL Server 2019",
+            "uso": "Motor de Base de Datos Principal. Aloja la base de datos RAMSAS con todo el histórico transaccional y operativo.",
+            "ruta de instalacion": "C:\\Program Files\\Microsoft SQL Server\\",
+            "Acceso": [
+                "administrador_local",
+                "grupo_dba"
+            ]
+        }
+    },
+    "SRV-APP-01": {
+        "App1": {
+            "nombre": "ICGRemote",
+            "uso": "Servicio de sincronización de transacciones en tiempo real o diferido con las cajas registradoras (TPV).",
+            "ruta de instalacion": "C:\\ICG\\ICGRemote\\",
+            "Acceso": [
+                "servicio_red_icg",
+                "grupo_administradores"
+            ]
+        },
+        "App2": {
+            "nombre": "Remote Desktop Services (RDP)",
+            "uso": "Publicación de entornos de trabajo remoto para el personal administrativo y contable.",
+            "ruta de instalacion": "N/A (Rol de Windows Server)",
+            "Acceso": [
+                "grupo_contabilidad",
+                "grupo_administracion"
+            ]
+        }
+    },
+    "SRV-OPS-01": {
+        "App1": {
+            "nombre": "Servicios Corporativos (Por Definir)",
+            "uso": "Soporte de operaciones generales de la empresa y herramientas de optimización.",
+            "ruta de instalacion": "/opt/servicios_ops/",
+            "Acceso": [
+                "grupo_infraestructura"
+            ]
+        }
+    },
+    "POS-EJEMPLO-01": {
+        "App1": {
+            "nombre": "ICG FrontCS / Front Retail",
+            "uso": "Software de terminal de punto de venta (TPV) para facturación directa al público.",
+            "ruta de instalacion": "C:\\ICG\\FrontRetail\\",
+            "Acceso": [
+                "usuario_cajero",
+                "supervisor_tienda",
+                "soporte_sistemas"
+            ]
+        }
+    }
+}

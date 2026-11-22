@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Dinámica de Presupuesto - Facturación Electrónica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --primary-color: #3b82f6;
+            --primary-hover: #2563eb;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --success: #10b981;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            background-image: radial-gradient(circle at top right, rgba(59, 130, 246, 0.15), transparent 40%),
+                              radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.1), transparent 40%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .multiplier {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .multiplier input {
+            width: 60px;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: rgba(15, 23, 42, 0.8);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            text-align: center;
+        }
+
+        .item-row {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 20px;
+            align-items: center;
+            padding: 15px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid transparent;
+        }
+
+        .item-row:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--border-color);
+            transform: translateY(-2px);
+        }
+
+        .item-info h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.1rem;
+        }
+
+        .item-info p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .item-price {
+            text-align: right;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--success);
+        }
+
+        .item-price.usd {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        /* Custom Checkbox */
+        .checkbox-wrapper-46 input[type="checkbox"] {
+            display: none;
+            visibility: hidden;
+        }
+
+        .checkbox-wrapper-46 .cbx {
+            margin: auto;
+            -webkit-user-select: none;
+            user-select: none;
+            cursor: pointer;
+        }
+        .checkbox-wrapper-46 .cbx span {
+            display: inline-block;
+            vertical-align: middle;
+            transform: translate3d(0, 0, 0);
+        }
+        .checkbox-wrapper-46 .cbx span:first-child {
+            position: relative;
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            transform: scale(1);
+            vertical-align: middle;
+            border: 1px solid var(--text-muted);
+            transition: all 0.2s ease;
+        }
+        .checkbox-wrapper-46 .cbx span:first-child svg {
+            position: absolute;
+            top: 5px;
+            left: 4px;
+            fill: none;
+            stroke: #FFFFFF;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 16px;
+            stroke-dashoffset: 16px;
+            transition: all 0.3s ease;
+            transition-delay: 0.1s;
+            transform: translate3d(0, 0, 0);
+        }
+        .checkbox-wrapper-46 .cbx span:first-child:before {
+            content: "";
+            width: 100%;
+            height: 100%;
+            background: var(--primary-color);
+            display: block;
+            transform: scale(0);
+            opacity: 1;
+            border-radius: 50%;
+        }
+        .checkbox-wrapper-46 .cbx:hover span:first-child {
+            border-color: var(--primary-color);
+        }
+        .checkbox-wrapper-46 .inp-cbx:checked + .cbx span:first-child {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            animation: wave-46 0.4s ease;
+        }
+        .checkbox-wrapper-46 .inp-cbx:checked + .cbx span:first-child svg {
+            stroke-dashoffset: 0;
+        }
+        @keyframes wave-46 {
+            50% { transform: scale(0.9); }
+        }
+
+        .summary-card {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(16, 185, 129, 0.2));
+            border-color: rgba(59, 130, 246, 0.3);
+            text-align: right;
+            position: sticky;
+            bottom: 20px;
+            z-index: 100;
+        }
+
+        .total-label {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .total-value {
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            margin: 0;
+        }
+
+        .total-usd {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Presupuesto Interactivo</h1>
+    <p class="subtitle">Objetivo Primario: Modernización de Infraestructura Edge (Periodo 1)</p>
+
+    <div class="glass-card">
+        <div class="section-title">
+            <span>Hardware y Red por Sede (CAPEX)</span>
+            <div class="multiplier">
+                <label for="sedesCount">Número de Sedes:</label>
+                <input type="number" id="sedesCount" value="13" min="1" max="50">
+            </div>
+        </div>
+
+        <div id="items-container">
+            <!-- Items generados por JS -->
+        </div>
+    </div>
+    
+    <div class="glass-card">
+        <div class="section-title">
+            <span>Software y Operación Anual (OPEX)</span>
+            <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: normal;">Costos centralizados</span>
+        </div>
+
+        <div id="opex-container">
+            <!-- Items generados por JS -->
+        </div>
+    </div>
+
+    <div class="glass-card summary-card">
+        <div class="total-label">Inversión Total Estimada (CAPEX + OPEX 1er Año)</div>
+        <div class="total-value" id="grandTotalCOP">$ 0 COP</div>
+        <div class="total-usd" id="grandTotalUSD">Aprox. $ 0 USD</div>
+    </div>
+</div>
+
+<script>
+    // Datos base extraídos del presupuesto original
+    const capexItems = [
+        {
+            id: 'item-pc',
+            name: 'Torre PC Corporativa',
+            desc: 'Intel Core i5 10ª/12ª Gen, 16GB RAM, 512GB SSD NVMe. Obligatorio para ejecutar SQL Server de forma fluida.',
+            priceCOP: 1800000,
+            priceUSD: 450,
+            checked: true
+        },
+        {
+            id: 'item-os',
+            name: 'Licencia Windows 10/11 Pro',
+            desc: 'OEM. Permite Active Directory, RDP y BitLocker. (Desmarcar si ya se tienen licencias corporativas por volumen).',
+            priceCOP: 600000,
+            priceUSD: 150,
+            checked: true
+        },
+        {
+            id: 'item-sql',
+            name: 'Microsoft SQL Server Express',
+            desc: 'Licencia gratuita para BD menores a 10GB. Suficiente para la operación Edge.',
+            priceCOP: 0,
+            priceUSD: 0,
+            checked: true
+        },
+        {
+            id: 'item-switch',
+            name: 'Switch Gigabit 8 puertos',
+            desc: 'TP-Link Omada SG2008. (Desmarcar si se aprovecharán los switches 100Mbps existentes, aunque se sacrifica velocidad local).',
+            priceCOP: 250000,
+            priceUSD: 60,
+            checked: true
+        },
+        {
+            id: 'item-ups',
+            name: 'UPS 750VA / 1000VA',
+            desc: 'Protección obligatoria contra apagones para evitar corrupción de la BD local.',
+            priceCOP: 400000,
+            priceUSD: 100,
+            checked: true
+        },
+        {
+            id: 'item-cables',
+            name: 'Patch Cords Cat 6',
+            desc: 'Cableado de red de alta velocidad.',
+            priceCOP: 120000,
+            priceUSD: 30,
+            checked: true
+        }
+    ];
+
+    const opexItems = [
+        {
+            id: 'item-cert',
+            name: 'Certificado Digital de Firma',
+            desc: 'Anual. Requerido para firmar los XML. (GSE, AndesCD, Certicámara).',
+            priceCOP: 500000,
+            priceUSD: 125,
+            checked: true
+        },
+        {
+            id: 'item-ses',
+            name: 'Servicio de Correo Masivo (AWS SES)',
+            desc: 'Anualizado. Garantiza entrega de correos a clientes sin caer en SPAM.',
+            priceCOP: 600000, 
+            priceUSD: 150,
+            checked: true
+        },
+        {
+            id: 'item-backup',
+            name: 'Respaldo Cloud (AWS S3)',
+            desc: 'Anualizado. Almacenamiento externo de XMLs emitidos.',
+            priceCOP: 960000, 
+            priceUSD: 240,
+            checked: true
+        }
+    ];
+
+    const formatCurrency = (value) => {
+        return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(value);
+    };
+    
+    const formatUSD = (value) => {
+        return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(value);
+    };
+
+    const renderItems = (containerId, items, isMultiplier) => {
+        const container = document.getElementById(containerId);
+        container.innerHTML = '';
+
+        items.forEach(item => {
+            const row = document.createElement('div');
+            row.className = 'item-row';
+            
+            row.innerHTML = `
+                <div class="checkbox-wrapper-46">
+                    <input type="checkbox" id="${item.id}" class="inp-cbx" ${item.checked ? 'checked' : ''} onchange="toggleItem('${item.id}', ${isMultiplier})">
+                    <label for="${item.id}" class="cbx">
+                        <span>
+                            <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                            </svg>
+                        </span>
+                    </label>
+                </div>
+                <div class="item-info">
+                    <h3>${item.name}</h3>
+                    <p>${item.desc}</p>
+                </div>
+                <div>
+                    <div class="item-price">${formatCurrency(item.priceCOP)}</div>
+                    <div class="item-price usd">${formatUSD(item.priceUSD)}</div>
+                </div>
+            `;
+            container.appendChild(row);
+        });
+    };
+
+    window.toggleItem = (id, isMultiplier) => {
+        const array = isMultiplier ? capexItems : opexItems;
+        const item = array.find(i => i.id === id);
+        if (item) {
+            item.checked = document.getElementById(id).checked;
+            calculateTotal();
+        }
+    };
+
+    const calculateTotal = () => {
+        const sedes = parseInt(document.getElementById('sedesCount').value) || 0;
+        
+        let totalCapexCOP = 0;
+        let totalCapexUSD = 0;
+        capexItems.forEach(item => {
+            if (item.checked) {
+                totalCapexCOP += item.priceCOP;
+                totalCapexUSD += item.priceUSD;
+            }
+        });
+        
+        let totalOpexCOP = 0;
+        let totalOpexUSD = 0;
+        opexItems.forEach(item => {
+            if (item.checked) {
+                totalOpexCOP += item.priceCOP;
+                totalOpexUSD += item.priceUSD;
+            }
+        });
+
+        const grandTotalCOP = (totalCapexCOP * sedes) + totalOpexCOP;
+        const grandTotalUSD = (totalCapexUSD * sedes) + totalOpexUSD;
+
+        document.getElementById('grandTotalCOP').textContent = formatCurrency(grandTotalCOP);
+        document.getElementById('grandTotalUSD').textContent = \`Aprox. \${formatUSD(grandTotalUSD)}\`;
+    };
+
+    document.getElementById('sedesCount').addEventListener('input', calculateTotal);
+
+    renderItems('items-container', capexItems, true);
+    renderItems('opex-container', opexItems, false);
+    calculateTotal();
+
+</script>
+</body>
+</html>

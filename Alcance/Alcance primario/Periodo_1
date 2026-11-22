@@ -1,0 +1,16 @@
+
+## Alcance por Componente
+* **Middleware ICG (On-Premise):**
+  * Conexión directa a la base de datos SQL Server de ICG.
+  * Captura síncrona/asíncrona de Facturas (con Órdenes de Compra), Notas Crédito y Notas Débito.
+* **Core Fiscal (API Local/Nube):**
+  * Generación de XML bajo el estándar DIAN UBL 2.1.
+  * Módulo de Firma Digital Única (Uso exclusivo del certificado `.pfx`/`.p12` de la empresa).
+  * Comunicación directa con Web Services SOAP de la DIAN.
+  * Motor de notificaciones por correo (SMTP o API transaccional).
+* **Base de Datos de Trazabilidad:** Architecture Single-Tenant (Monocuenta). Registro de IDs de ICG, CUFE/CUDE, XMLs y estados de entrega.
+* **Visualizador en Tiempo Real:** Dashboard web interno para monitoreo, auditoría contable y reenvíos manuales por error.
+
+--------------------------------------------------------------------------------------------------------------
+
+

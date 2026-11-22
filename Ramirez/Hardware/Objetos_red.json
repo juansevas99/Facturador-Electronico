@@ -1,0 +1,53 @@
+[
+    {
+        "Id": "WAN_BALANCED",
+        "nombre": "Balanceador",
+        "descripcion": "BALANCEADOR DE INTERNET. Dirección IP LAN: 192.168.0.1, IP de conexión del Controlador: 192.168.0.1, Dirección MAC: 40-AE-30-CE-B7-5D, Número de serie: 22432Y6002962, Versión de Firmware: 2.3.3 Build 20251029 Rel.18054",
+        "modelo": "ER605 v2.0",
+        "Conexion": {
+            "tipo": "Padre",
+            "medio": "Ethernet",
+            "puerto": "Desconocido",
+            "ID": [
+                "MODEM_MOVISTAR",
+                "MODEM_CLARO"
+            ]
+        }
+    },
+    {
+        "Id": "SW_SG3452",
+        "nombre": "sWITCH",
+        "descripcion": "Switch de distribución y acceso. Dirección IP: 192.168.0.6, IP de conexión del Controlador: 192.168.0.6, Dirección MAC: 40-AE-30-F6-97-FA, Número de serie: 22433R9000783",
+        "modelo": "SG3452 v1.20",
+        "Conexion": {
+            "tipo": "Padre",
+            "medio": "VPN",
+            "puerto": "Desconocido",
+            "ID": "WAN_BALANCED"
+        }
+    },
+    {
+        "Id": "CTRL_OC300",
+        "nombre": "Controller",
+        "descripcion": "Controlador de red. Nombre de host/sistema: OC300_EA058D, Dirección IP: 192.168.0.4, Dirección MAC: 74-FE-CE-EA-05-8D, Tipo: Controlador, Vendedor: TP-Link, Sistema operativo y versión: Desconocido",
+        "modelo": "OMADA OC300",
+        "Conexion": {
+            "tipo": "Padre",
+            "medio": "VPN",
+            "puerto": "Desconocido",
+            "ID": "WAN_BALANCED"
+        }
+    },
+    {
+        "Id": "WIFI_EAP610",
+        "nombre": "Punto wifi",
+        "descripcion": "Punto de acceso Wi-Fi. Dirección IP: 192.168.0.5, IP de conexión del Controlador: 192.168.0.5, Dirección MAC: B0-19-21-DE-FA-5A, Número de serie: 22480Q2001237",
+        "modelo": "EAP610(US) v3.0",
+        "Conexion": {
+            "tipo": "Padre",
+            "medio": "VPN",
+            "puerto": "Desconocido",
+            "ID": "SW_SG3452"
+        }
+    }
+]

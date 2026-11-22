@@ -1,0 +1,13 @@
+## 4.1. Periodo 1: Implementación Interna (Modalidad "Software Propio")
+En esta fase, la empresa actúa bajo su propio riesgo y NIT frente a la DIAN. El software es una extensión de la infraestructura interna de la compañía.
+
+### A. Requerimientos Tributarios (DIAN)
+* **Proceso de Habilitación Único:** Se debe asociar el nuevo software en el catálogo de la DIAN bajo el modo de operación "Software Propio". El sistema debe superar con éxito el 100% de las pruebas del `TestSetID` asignado por la DIAN (enviando el set de facturas, notas crédito y débito de prueba) para obtener el estado de "Habilitado".
+* **Sincronización de Rangos de Facturación:** El Core debe consumir el servicio web de la DIAN para consultar y descargar la resolución de facturación autorizada (prefijos, rangos numéricos y vigencia) de la empresa actual, bloqueando la emisión si los folios están vencidos o agotados.
+* **Cálculo de Algoritmos Fiscales:** Implementación estricta de las fórmulas matemáticas de la DIAN para la generación del **CUFE** (Facturas) y **CUDE** (Notas) usando hashing SHA-384. La estructura del XML debe cumplir el Anexo Técnico vigente de la DIAN (formato UBL 2.1).
+* **Gestión de Contingencia Tipo 2:** En caso de caída de los servidores de la DIAN, el software debe permitir la numeración bajo "Factura de Contingencia" y, una vez restablecido el servicio del estado, garantizar la transmisión de dichos XML en un plazo máximo de 48 horas (según el estándar legal de la DIAN).
+
+### B. Requerimientos Jurídicos y Legales
+* **Autenticidad e Integridad (Ley 527 de 1999):** El software debe estampar la firma digital (XAdES-BES) utilizando el certificado digital adquirido a nombre de la empresa. Jurídicamente, esto garantiza el "no repudio", lo que significa que la factura tiene la misma validez legal que una firma manuscrita ante cualquier juzgado o auditoría.
+* **Custodia de Información Local:** Almacenamiento obligatorio por 5 años de los XML de soporte de costos y gastos (Art. 632 del Estatuto Tributario). El equipo de TI local es el único responsable de la pérdida o corrupción de estos datos fiscales en esta fase.
+* **Habeas Data Interno (Ley 1581 de 2012):** La base de datos de trazabilidad procesará datos de clientes directos de la empresa. Al ser de uso interno, se aplican las políticas de privacidad que la empresa ya tiene vigentes en su operación comercial actual.

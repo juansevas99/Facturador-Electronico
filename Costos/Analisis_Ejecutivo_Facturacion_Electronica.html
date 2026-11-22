@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis Ejecutivo - Facturación Electrónica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1e293b;
+            line-height: 1.6;
+            background: #f8fafc;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        /* ===== COVER PAGE ===== */
+        .cover-page {
+            width: 100%;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+            page-break-after: always;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover-page::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(ellipse, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+        }
+
+        .cover-page::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -20%;
+            width: 60%;
+            height: 100%;
+            background: radial-gradient(ellipse, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+        }
+
+        .cover-content {
+            text-align: center;
+            z-index: 1;
+            max-width: 700px;
+        }
+
+        .cover-badge {
+            display: inline-block;
+            padding: 8px 24px;
+            border: 1px solid rgba(96, 165, 250, 0.4);
+            border-radius: 50px;
+            color: #93c5fd;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+        }
+
+        .cover-title {
+            font-size: 3rem;
+            font-weight: 800;
+            color: white;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .cover-title span {
+            background: linear-gradient(135deg, #60a5fa, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cover-subtitle {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            margin-bottom: 50px;
+            line-height: 1.7;
+        }
+
+        .cover-meta {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .cover-meta-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .cover-meta-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #475569;
+        }
+
+        .cover-meta-value {
+            color: #cbd5e1;
+            font-weight: 600;
+        }
+
+        .cover-line {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, #3b82f6, #10b981);
+            border-radius: 2px;
+            margin: 40px auto 0;
+        }
+
+        /* ===== CONTENT PAGES ===== */
+        .page {
+            width: 100%;
+            min-height: 100vh;
+            padding: 50px 60px;
+            page-break-after: always;
+            background: white;
+            position: relative;
+        }
+
+        .page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #3b82f6, #10b981);
+        }
+
+        .page-header {
+            margin-bottom: 35px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .section-number {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #3b82f6;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        /* ===== TABLE ===== */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+            margin-top: 20px;
+        }
+
+        .comparison-table thead th {
+            background: #0f172a;
+            color: white;
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .comparison-table thead th:first-child {
+            border-radius: 8px 0 0 0;
+            width: 22%;
+        }
+
+        .comparison-table thead th:last-child {
+            border-radius: 0 8px 0 0;
+        }
+
+        .comparison-table thead th.col-primary {
+            background: #1e40af;
+        }
+
+        .comparison-table thead th.col-alt {
+            background: #7c2d12;
+        }
+
+        .comparison-table tbody td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+
+        .comparison-table tbody tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .comparison-table tbody td:first-child {
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .highlight-green {
+            color: #059669;
+            font-weight: 700;
+        }
+
+        .highlight-red {
+            color: #dc2626;
+            font-weight: 700;
+        }
+
+        /* ===== COSTS ===== */
+        .cost-section {
+            margin-bottom: 30px;
+        }
+
+        .cost-section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .cost-subsection {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #475569;
+            margin: 18px 0 10px 0;
+        }
+
+        .cost-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 10px 16px;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            background: #f8fafc;
+            border-left: 3px solid #e2e8f0;
+        }
+
+        .cost-item.primary {
+            border-left-color: #3b82f6;
+        }
+
+        .cost-item.warning {
+            border-left-color: #f59e0b;
+            background: #fffbeb;
+        }
+
+        .cost-item.danger {
+            border-left-color: #ef4444;
+            background: #fef2f2;
+        }
+
+        .cost-item-name {
+            font-weight: 600;
+            font-size: 0.88rem;
+            color: #1e293b;
+        }
+
+        .cost-item-desc {
+            font-size: 0.78rem;
+            color: #64748b;
+            margin-top: 2px;
+        }
+
+        .cost-item-price {
+            text-align: right;
+            white-space: nowrap;
+            margin-left: 20px;
+        }
+
+        .cost-item-price .cop {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #0f172a;
+        }
+
+        .cost-item-price .usd {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+
+        /* ===== STRATEGIC NOTE ===== */
+        .strategic-note {
+            background: linear-gradient(135deg, #ecfdf5, #f0fdf4);
+            border: 1px solid #86efac;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 25px;
+        }
+
+        .strategic-note-title {
+            font-weight: 700;
+            color: #166534;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .strategic-note p {
+            font-size: 0.85rem;
+            color: #15803d;
+            line-height: 1.6;
+        }
+
+        /* ===== DIAGRAMS ===== */
+        .diagram-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .diagram-container img {
+            max-width: 100%;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .diagram-label {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* ===== EXECUTIVE LETTER ===== */
+        .letter-heading {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .letter-body {
+            font-size: 0.92rem;
+            line-height: 1.8;
+            color: #334155;
+        }
+
+        .letter-body p {
+            margin-bottom: 16px;
+        }
+
+        .letter-subsection {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 28px 0 12px 0;
+        }
+
+        .letter-list {
+            margin: 12px 0 12px 20px;
+        }
+
+        .letter-list li {
+            margin-bottom: 10px;
+            font-size: 0.88rem;
+            color: #334155;
+        }
+
+        .letter-list li strong {
+            color: #0f172a;
+        }
+
+        .kpi-row {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .kpi-card {
+            flex: 1;
+            background: linear-gradient(135deg, #f0f9ff, #eff6ff);
+            border: 1px solid #bfdbfe;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .kpi-card.green {
+            background: linear-gradient(135deg, #ecfdf5, #f0fdf4);
+            border-color: #86efac;
+        }
+
+        .kpi-value {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .kpi-label {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== FOOTER ===== */
+        .page-footer {
+            position: absolute;
+            bottom: 30px;
+            left: 60px;
+            right: 60px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            color: #94a3b8;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 10px;
+        }
+
+        @media print {
+            body { background: white; }
+            .page { box-shadow: none; border: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== PORTADA ===== -->
+    <div class="cover-page">
+        <div class="cover-content">
+            <div class="cover-badge">Documento Ejecutivo — Confidencial</div>
+            <h1 class="cover-title">Análisis Comparativo de <span>Facturación Electrónica</span></h1>
+            <p class="cover-subtitle">
+                Evaluación estratégica de los enfoques de integración con el sistema ERP ICG 
+                para la emisión de documentos electrónicos ante la DIAN.
+            </p>
+            <div class="cover-line"></div>
+            <div class="cover-meta" style="margin-top: 40px;">
+                <div class="cover-meta-item">
+                    <span class="cover-meta-label">Preparado para</span>
+                    <span class="cover-meta-value">Dirección Ejecutiva</span>
+                </div>
+                <div class="cover-meta-item">
+                    <span class="cover-meta-label">Fecha</span>
+                    <span class="cover-meta-value">Agosto 2026</span>
+                </div>
+                <div class="cover-meta-item">
+                    <span class="cover-meta-label">Clasificación</span>
+                    <span class="cover-meta-value">Uso Interno</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PÁGINA 2: CUADRO COMPARATIVO ===== -->
+    <div class="page">
+        <div class="page-header">
+            <div class="section-number">Sección 01</div>
+            <div class="section-title">Cuadro Comparativo de Enfoques</div>
+        </div>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Característica</th>
+                    <th class="col-primary">Objetivo Primario<br>(Facturador Propio)</th>
+                    <th class="col-alt">Objetivo Alternativo<br>(Vía Proveedor Tecnológico)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Rol del Core API</td>
+                    <td>Genera el XML UBL 2.1, lo firma con certificado propio y lo transmite <strong>directo a la DIAN</strong>.</td>
+                    <td>Actúa como un "pasamanos". Envía JSON al PT, quien genera, firma y transmite a la DIAN.</td>
+                </tr>
+                <tr>
+                    <td>Soberanía del Dato</td>
+                    <td><span class="highlight-green">Total.</span> El supermercado es dueño de su proceso, sus XML y no depende de plataformas externas.</td>
+                    <td><span class="highlight-red">Dependiente.</span> La emisión está sujeta a la disponibilidad, latencia y políticas de cobro del PT.</td>
+                </tr>
+                <tr>
+                    <td>Arquitectura en Tienda</td>
+                    <td><strong>Edge Computing:</strong> Servidor Periférico centraliza la BD de las cajas (Thin Clients) y ejecuta el Middleware.</td>
+                    <td><strong>Híbrida:</strong> Middleware lee de ICG y transmite a la Nube (Orquestador), quien delega al PT.</td>
+                </tr>
+                <tr>
+                    <td>Tolerancia a Fallos</td>
+                    <td><span class="highlight-green">Alta.</span> Store-and-Forward local con cola SQLite en el Servidor Periférico.</td>
+                    <td><span class="highlight-red">Baja/Media.</span> Si el PT experimenta caídas, la facturación se detiene.</td>
+                </tr>
+                <tr>
+                    <td>Costo por Transacción</td>
+                    <td><span class="highlight-green">$0 COP.</span> Enviar 100 o 500.000 facturas cuesta lo mismo ante la DIAN.</td>
+                    <td><span class="highlight-red">$50 a $80 COP</span> por factura. Costo variable permanente.</td>
+                </tr>
+                <tr>
+                    <td>Responsabilidad de Correos</td>
+                    <td>El Core Fiscal usa su propia API de correos (ej. Amazon SES) para notificar al cliente.</td>
+                    <td>El PT asume la responsabilidad del envío del correo electrónico al adquiriente.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="page-footer">
+            <span>Análisis Ejecutivo — Facturación Electrónica</span>
+            <span>Página 2</span>
+        </div>
+    </div>
+
+    <!-- ===== PÁGINA 3: COSTOS OBJETIVO PRIMARIO ===== -->
+    <div class="page">
+        <div class="page-header">
+            <div class="section-number">Sección 02</div>
+            <div class="section-title">Desglose de Costos — Objetivo Primario</div>
+        </div>
+
+        <div class="strategic-note">
+            <div class="strategic-note-title">
+                ✦ Nota Estratégica — Infraestructura Preexistente
+            </div>
+            <p>
+                La empresa actualmente cuenta con <strong>3 servidores de alta potencia</strong>. Esta capacidad instalada es perfectamente capaz de sobrellevar el despliegue del Core Fiscal (Objetivo Primario). Aunque este enfoque requiere mayor esfuerzo de configuración inicial y gestión de infraestructura, la existencia de estos servidores reduce drásticamente el CapEx inicial real y consolida la rentabilidad a largo plazo al evadir los costos transaccionales variables de un PT.
+            </p>
+        </div>
+
+        <div class="cost-section">
+            <div class="cost-subsection">Inversión en Infraestructura Edge (Por cada Sede)</div>
+
+            <div class="cost-item primary">
+                <div>
+                    <div class="cost-item-name">Torre PC Corporativa</div>
+                    <div class="cost-item-desc">Intel Core i5, 16GB RAM, SSD NVMe. Obligatorio para la base de datos.</div>
+                </div>
+                <div class="cost-item-price">
+                    <div class="cop">$1.800.000 COP</div>
+                    <div class="usd">$450 USD</div>
+                </div>
+            </div>
+
+            <div class="cost-item primary">
+                <div>
+                    <div class="cost-item-name">Licencia Windows 10/11 Pro</div>
+                    <div class="cost-item-desc">OEM. Opcional si ya se tienen licencias corporativas por volumen.</div>
+                </div>
+                <div class="cost-item-price">
+                    <div class="cop">$600.000 COP</div>
+                    <div class="usd">$150 USD</div>
+                </div>
+            </div>
+
+            <div class="cost-item primary">
+                <div>
+                    <div class="cost-item-name">Microsoft SQL Server Express</div>
+                    <div class="cost-item-desc">Licencia gratuita suficiente para operaciones locales menores a 10GB.</div>
+                </div>
+                <div class="cost-item-price">
+                    <div class="cop" style="color: #059669;">$0 COP</div>
+                    <div class="usd">Gratuito</div>
+                </div>
+            </div>
+
+            <div class="cost-item primary">
+                <div>
+                    <div class="cost-item-name">Switch Gigabit 8 puertos</div>
+                    <div class="cost-item-desc">Opcional: se pueden usar switches 100Mbps existentes.</div>
+                </div>
+                <div class="cost-item-price">
+                    <div class="cop">$250.000 COP</div>
+                    <div class="usd">$60 USD</div>
+                </div>
+            </div>
+
+            <div class="cost-item primary">
+                <div>
+                    <div class="cost-item-name">UPS 750VA / 1000VA</div>
+                    <div class="cost-item-desc">Obligatorio para proteger contra apagones y corrupción de datos.</div>
+                </div>
+                <div class="cost-item-price">
+                    <div class="cop">$400.000 COP</div>
+                    <div class="usd">$100 USD</div>
+                </div>
+            </div>
+
+            <div class="cost-item primary">
+                <div>
+                    <div class="cost-item-name">Patch Cords Cat 6</div>
+                    <div class="cost-item-desc">Cableado de red de alta velocidad.</div>
+                </div>
+                <div class="cost-item-price">
+                    <div class="cop">$120.000 COP</div>
+                    <div class="usd">$30 USD</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cost-section">
+            <div class="cost-subsection">Operación Anual de Software (Costos Centralizados)</div>
+
+            <div class="cost-item primary">
+                <div>
+                    <div class="cost-item-name">Certificado Digital de Firma</div>
+                    <div class="cost-item-desc">Anual. Requerido obligatoriamente para firmar los XML.</div>
+                </div>
+                <div class="cost-item-price">
+                    <div class="cop">$350.000 – $500.000</div>
+                    <div class="usd">COP / Año</div>
+                </div>
+            </div>
+
+            <div class="cost-item primary">
+                <div>
+                    <div class="cost-item-name">Servicio de Correo Masivo (AWS SES)</div>
+                    <div class="cost-item-desc">Anualizado. Pago por uso variable ($20k–$50k mensuales).</div>
+                </div>
+                <div class="cost-item-price">
+                    <div class="cop">$240.000 – $600.000</div>
+                    <div class="usd">COP / Año</div>
+                </div>
+            </div>
+
+            <div class="cost-item primary">
+                <div>
+                    <div class="cost-item-name">Certificado SSL/TLS</div>
+                    <div class="cost-item-desc">Opcional si se usa Let's Encrypt gratuito.</div>
+                </div>
+                <div class="cost-item-price">
+                    <div class="cop">$0 – $150.000</div>
+                    <div class="usd">COP / Año</div>
+                </div>
+            </div>
+
+            <div class="cost-item primary">
+                <div>
+                    <div class="cost-item-name">Respaldo en la Nube (AWS S3)</div>
+                    <div class="cost-item-desc">Anualizado. Almacenamiento externo de XMLs emitidos.</div>
+                </div>
+                <div class="cost-item-price">
+                    <div class="cop">$480.000 – $960.000</div>
+                    <div class="usd">COP / Año</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <span>Análisis Ejecutivo — Facturación Electrónica</span>
+            <span>Página 3</span>
+        </div>
+    </div>
+
+    <!-- ===== PÁGINA 4: COSTOS OBJETIVO ALTERNATIVO ===== -->
+    <div class="page">
+        <div class="page-header">
+            <div class="section-number">Sección 02 (Continuación)</div>
+            <div class="section-title">Desglose de Costos — Objetivo Alternativo</div>
+        </div>
+
+        <div class="cost-section">
+            <div class="cost-subsection">Operación de Software y Servicios del Proveedor Tecnológico (PT)</div>
+
+            <div class="cost-item">
+                <div>
+                    <div class="cost-item-name">Set de Pruebas / Activación</div>
+                    <div class="cost-item-desc">Pago único para activar el entorno Sandbox del proveedor.</div>
+                </div>
+                <div class="cost-item-price">
+                    <div class="cop">$0 – $200.000 COP</div>
+                    <div class="usd">Pago Único</div>
+                </div>
+            </div>
+
+            <div class="cost-item">
+                <div>
+                    <div class="cost-item-name">Certificado SSL y Correo</div>
+                    <div class="cost-item-desc">El Proveedor Tecnológico asume estos rubros.</div>
+                </div>
+                <div class="cost-item-price">
+                    <div class="cop" style="color: #059669;">$0 COP</div>
+                    <div class="usd">Incluido</div>
+                </div>
+            </div>
+
+            <div class="cost-item warning">
+                <div>
+                    <div class="cost-item-name">Bolsa de Folios — Costo Base (PYME)</div>
+                    <div class="cost-item-desc">Paquete inicial de facturas prepagadas. Costo individual: $50–$80 COP/factura.</div>
+                </div>
+                <div class="cost-item-price">
+                    <div class="cop">$200.000 – $500.000 COP</div>
+                    <div class="usd">Anual (bajo volumen)</div>
+                </div>
+            </div>
+
+            <div class="cost-item danger">
+                <div>
+                    <div class="cost-item-name">⚠ Proyección Real (500.000 facturas/mes)</div>
+                    <div class="cost-item-desc">A $50–$80 COP por factura, el costo real para el volumen transaccional del supermercado se dispara exponencialmente.</div>
+                </div>
+                <div class="cost-item-price">
+                    <div class="cop" style="color: #dc2626; font-size: 1rem;">$25M – $40M COP/Mes</div>
+                    <div class="usd" style="color: #dc2626;">$300M – $480M COP/Año</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="kpi-row" style="margin-top: 40px;">
+            <div class="kpi-card green">
+                <div class="kpi-value" style="color: #059669;">$0</div>
+                <div class="kpi-label">Costo por factura<br>Objetivo Primario</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value" style="color: #dc2626;">$50 – $80</div>
+                <div class="kpi-label">Costo por factura (COP)<br>Objetivo Alternativo</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value">500.000</div>
+                <div class="kpi-label">Facturas estimadas<br>por mes</div>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <span>Análisis Ejecutivo — Facturación Electrónica</span>
+            <span>Página 4</span>
+        </div>
+    </div>
+
+    <!-- ===== PÁGINA 5: DIAGRAMA ARQUITECTURA PRIMARIO ===== -->
+    <div class="page">
+        <div class="page-header">
+            <div class="section-number">Sección 03</div>
+            <div class="section-title">Representación Gráfica de Arquitecturas</div>
+        </div>
+
+        <div class="cost-subsection" style="margin-top: 10px;">Arquitectura 1: Objetivo Primario (Edge-to-Cloud — Facturador Propio)</div>
+        <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 16px;">El Core asume la responsabilidad total de la generación de XML, firma digital y comunicación directa con la DIAN.</p>
+
+        <div class="diagram-container">
+            <img src="https://mermaid.ink/img/Z3JhcGggVEQKICAgIHN1YmdyYXBoIFRpZW5kYVsiU2VkZSAvIFN1Y3Vyc2FsIChFZGdlIENvbXB1dGluZykiXQogICAgICAgIEJEX0lDR1soQkQgSUNHRlJPTlQpXQogICAgICAgIE1pZGRsZXdhcmVbQWdlbnRlIE1pZGRsZXdhcmVdCiAgICAgICAgQkRfSUNHIC0tPnwxLiBMZWN0dXJhfCBNaWRkbGV3YXJlCiAgICBlbmQKCiAgICBzdWJncmFwaCBOdWJlUHJvcGlhWyJOdWJlIChDb3JlIEZpc2NhbCBQcm9waW8pIl0KICAgICAgICBBUElbQVBJIENvcmUgRmlzY2FsXQogICAgICAgIExpcXVpZGFkb3JbTGlxdWlkYWRvciBGaXNjYWwgKyBHZW5lcmFkb3IgWE1MXQogICAgICAgIE1vdG9yQ29ycmVvW01vdG9yIFNNVFAvU0VTXQogICAgICAgIEJEX0NvcmVbKEJEIENvcmVGaXNjYWxfREIpXQogICAgICAgIEFQSSAtLT58Mi4gUHJvY2VzYSBKU09OfCBMaXF1aWRhZG9yCiAgICAgICAgTGlxdWlkYWRvciAtLT58My4gR3VhcmRhIFhNTC9QREZ8IEJEX0NvcmUKICAgICAgICBMaXF1aWRhZG9yIC0tPnw2LiBFbnbDrWEgWE1MfCBNb3RvckNvcnJlbwogICAgZW5kCgogICAgRElBTigoRElBTiBXZWJTZXJ2aWNlcykpCiAgICBDbGllbnRlKChCdXrDs24gQ2xpZW50ZSkpCgogICAgTWlkZGxld2FyZSA9PT18Mi4gRW52w61hIEpTT04gSFRUUFN8IEFQSQogICAgTGlxdWlkYWRvciA9PT18NC4gVHJhbnNtaXRlIFhNTCBGaXJtYWRvfCBESUFOCiAgICBESUFOID09PXw1LiBSZXRvcm5hIENVRkUvQXByb2JhY2nDs258IExpcXVpZGFkb3IKICAgIEFQSSA9PT18Ny4gRGV2dWVsdmUgQ1VGRSBhIFRpZW5kYXwgTWlkZGxld2FyZQogICAgTWlkZGxld2FyZSAtLT58OC4gVVBEQVRFIFdyaXRlLWJhY2t8IEJEX0lDRwogICAgTW90b3JDb3JyZW8gLS4tPnxOb3RpZmljYWNpw7NufCBDbGllbnRlCgogICAgc3R5bGUgVGllbmRhIGZpbGw6I2UxZjVmZSxzdHJva2U6IzAzYTlmNCxzdHJva2Utd2lkdGg6MnB4CiAgICBzdHlsZSBOdWJlUHJvcGlhIGZpbGw6I2YzZTVmNSxzdHJva2U6IzljMjdiMCxzdHJva2Utd2lkdGg6MnB4CiAgICBzdHlsZSBESUFOIGZpbGw6I2U4ZjVlOSxzdHJva2U6IzRjYWY1MCxzdHJva2Utd2lkdGg6MnB4" alt="Diagrama Arquitectura Objetivo Primario" />
+            <div class="diagram-label">Flujo completo Edge-to-Cloud: Middleware → Core Fiscal → DIAN → Write-back</div>
+        </div>
+
+        <div class="cost-subsection" style="margin-top: 30px;">Arquitectura 2: Objetivo Alternativo (Vía PT Externo)</div>
+        <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 16px;">El Core es un orquestador dependiente de la API de un tercero. La generación del XML, la firma y la comunicación con la DIAN son controladas por el PT.</p>
+
+        <div class="diagram-container">
+            <img src="https://mermaid.ink/img/Z3JhcGggVEQKICAgIHN1YmdyYXBoIFRpZW5kYVsiU2VkZSAoSW5mcmFlc3RydWN0dXJhIFRyYWRpY2lvbmFsKSJdCiAgICAgICAgQkRfSUNHWyhCRCBJQ0cgU1FMIFNlcnZlcildCiAgICAgICAgTWlkZGxld2FyZVtBZ2VudGUgTWlkZGxld2FyZV0KICAgICAgICBCRF9JQ0cgLS0-fDEuIExlY3R1cmF8IE1pZGRsZXdhcmUKICAgIGVuZAoKICAgIHN1YmdyYXBoIE51YmVQcm9waWFbIk51YmUgKENvcmUgQVBJIFBhc2FtYW5vcykiXQogICAgICAgIEFQSVtBUEkgT3JxdWVzdGFkb3JdCiAgICAgICAgQkRfQ29yZVsoQkQgVHJhemFiaWxpZGFkKV0KICAgICAgICBBUEkgLS0-fDQuIEd1YXJkYSBDVUZFIHkgVVJMc3wgQkRfQ29yZQogICAgZW5kCgogICAgc3ViZ3JhcGggTnViZVBUWyJJbmZyYWVzdHJ1Y3R1cmEgUHJvdmVlZG9yIFRlY25vbG9naWNvIChQVCkiXQogICAgICAgIEFQSV9QVFtBUEkgUkVTVCBkZWwgUFRdCiAgICAgICAgTGlxdWlkYWRvcl9QVFtHZW5lcmFkb3IgWE1MIHkgRmlybWEgUFRdCiAgICAgICAgTW90b3JDb3JyZW9fUFRbTW90b3IgRW52aW8gQ29ycmVvcyBQVF0KICAgICAgICBBUElfUFQgLS0-fDMuIEdlbmVyYSBYTUx8IExpcXVpZGFkb3JfUFQKICAgICAgICBMaXF1aWRhZG9yX1BUIC0tPnw2LiBFbnZpYSBYTUx8IE1vdG9yQ29ycmVvX1BUCiAgICBlbmQKCiAgICBESUFOKChESUFOIFdlYlNlcnZpY2VzKSkKICAgIENsaWVudGUoKEJ1em9uIENsaWVudGUpKQoKICAgIE1pZGRsZXdhcmUgPT09fDIuIEVudmlhIEpTT04gSFRUUFN8IEFQSQogICAgQVBJID09PXwzLiBSZWVudmlhIEpTT04vVG9rZW4gQXV0aHwgQVBJX1BUCiAgICBMaXF1aWRhZG9yX1BUID09PXw0LiBUcmFuc21pdGUgWE1MIEZpcm1hZG98IERJQU4KICAgIERJQU4gPT09fDUuIFJldG9ybmEgQ1VGRXwgTGlxdWlkYWRvcl9QVAogICAgQVBJX1BUID09PXw2LiBSZXRvcm5hIENVRkUvUERGIFVSTHwgQVBJCiAgICBBUEkgPT09fDcuIERldnVlbHZlIENVRkUgYSBUaWVuZGF8IE1pZGRsZXdhcmUKICAgIE1pZGRsZXdhcmUgLS0-fDguIFVQREFURSBXcml0ZS1iYWNrfCBCRF9JQ0cKICAgIE1vdG9yQ29ycmVvX1BUIC0uLT58Tm90aWZpY2FjaW9ufCBDbGllbnRlCgogICAgc3R5bGUgVGllbmRhIGZpbGw6I2UxZjVmZSxzdHJva2U6IzAzYTlmNCxzdHJva2Utd2lkdGg6MnB4CiAgICBzdHlsZSBOdWJlUHJvcGlhIGZpbGw6I2ZmZjNlMCxzdHJva2U6I2ZmOTgwMCxzdHJva2Utd2lkdGg6MnB4CiAgICBzdHlsZSBOdWJlUFQgZmlsbDojZmZlYmVlLHN0cm9rZTojZjQ0MzM2LHN0cm9rZS13aWR0aDoycHgKICAgIHN0eWxlIERJQU4gZmlsbDojZThmNWU5LHN0cm9rZTojNGNhZjUwLHN0cm9rZS13aWR0aDoycHg" alt="Diagrama Arquitectura Objetivo Alternativo" />
+            <div class="diagram-label">Flujo dependiente: Middleware → Orquestador → PT → DIAN → Write-back</div>
+        </div>
+
+        <div class="page-footer">
+            <span>Análisis Ejecutivo — Facturación Electrónica</span>
+            <span>Página 5</span>
+        </div>
+    </div>
+
+    <!-- ===== PÁGINA 6: CARTA EJECUTIVA PERIODO 2 ===== -->
+    <div class="page">
+        <div class="page-header">
+            <div class="section-number">Sección 04</div>
+            <div class="section-title">Carta Ejecutiva: El Salto Estratégico al Periodo 2</div>
+        </div>
+
+        <div class="letter-heading">A la Dirección Ejecutiva — Plataforma SaaS Multi-Tenant</div>
+
+        <div class="letter-body">
+            <p>
+                Una vez garantizada nuestra soberanía operativa y la erradicación del gasto en proveedores tecnológicos de terceros durante el Periodo 1, el <strong>Periodo 2 del Objetivo Primario</strong> plantea la transformación de nuestro departamento de TI: de ser un centro de costos, a convertirse en una <strong>unidad de negocios rentable</strong>.
+            </p>
+            <p>
+                El objetivo del Periodo 2 es empaquetar nuestro desarrollo interno y abrir el "Core Fiscal" para vender el servicio de facturación electrónica a <strong>empresas externas</strong>, operando nosotros mismos bajo el modelo de Plataforma como Servicio (SaaS Multi-Tenant).
+            </p>
+
+            <div class="letter-subsection">Aprovechamiento de la Capacidad Instalada</div>
+            <p>
+                Nuestra ventaja competitiva más agresiva radica en nuestra infraestructura actual. Contamos con <strong>3 servidores de alta potencia</strong>. Si tuviéramos que alquilar el cómputo en la nube necesario para orquestar la facturación de múltiples empresas externas, los costos fijos destruirían nuestros márgenes en los primeros meses.
+            </p>
+            <p>
+                Sin embargo, al utilizar estos 3 servidores propios como infraestructura On-Premise/Nube Privada para alojar el Core Multi-Tenant:
+            </p>
+            <ol class="letter-list">
+                <li><strong>El CapEx real para escalar es casi nulo</strong> a nivel de hardware.</li>
+                <li>Todo nuevo cliente que conectemos a nuestra plataforma genera <strong>ingresos con un margen de ganancia cercano al 100%</strong>, dado que el costo marginal por factura emitida ante la DIAN sigue siendo exactamente <strong>$0 COP</strong>.</li>
+            </ol>
+
+            <div class="letter-subsection">Nuevos Requerimientos y Costos Proyectados</div>
+            <p>Para garantizar un servicio de grado corporativo (SLA 99.9%) a terceros:</p>
+
+            <div class="cost-item primary" style="margin-top: 12px;">
+                <div>
+                    <div class="cost-item-name">Costos Fijos Operativos (OpEx)</div>
+                    <div class="cost-item-desc">Internet Dedicado con IP Fija, Bóveda Criptográfica (AWS KMS), Monitoreo y Ticketing.</div>
+                </div>
+                <div class="cost-item-price">
+                    <div class="cop">$950.000 – $2.100.000</div>
+                    <div class="usd">COP / Mes</div>
+                </div>
+            </div>
+
+            <div class="cost-item primary">
+                <div>
+                    <div class="cost-item-name">Adecuaciones Iniciales y Legales (CapEx)</div>
+                    <div class="cost-item-desc">Contratos SaaS, Habeas Data (SIC), UPS Corporativa para los 3 servidores.</div>
+                </div>
+                <div class="cost-item-price">
+                    <div class="cop">$3.500.000 – $7.500.000</div>
+                    <div class="usd">COP (Pago Único)</div>
+                </div>
+            </div>
+
+            <div class="letter-subsection">Conclusión</div>
+            <p>
+                El Periodo 2 es la justificación definitiva para construir el Core Fiscal propio. No solo estamos ahorrando cientos de millones al año en nuestra propia facturación, sino que estamos creando un <strong>activo digital comercializable</strong>, soportado por hardware potente que ya ha sido pagado.
+            </p>
+        </div>
+
+        <div class="page-footer">
+            <span>Análisis Ejecutivo — Facturación Electrónica</span>
+            <span>Página 6</span>
+        </div>
+    </div>
+
+</body>
+</html>

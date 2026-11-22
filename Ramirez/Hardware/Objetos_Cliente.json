@@ -1,0 +1,2018 @@
+[
+  {
+    "id": "SRV-BD-01",
+    "nombre": "srvbd--premium",
+    "tipo": "Servidor de Base de Datos",
+    "descripcion": "Nodo crítico que aloja los datos operativos, comerciales y el histórico transaccional de la cadena. Contiene la base de datos principal RAMSAS.",
+    "modelo": "Dell PowerEdge R740",
+    "sistema_operativo": "Windows Server 2022",
+    "ip_local": "192.168.1.10",
+    "segmentacion": "VLAN 10 (Servidores)",
+    "especificaciones": {
+      "motor_bd": "Microsoft SQL Server 2019",
+      "nic_activas": 1,
+      "nic_totales": 4,
+      "seguridad": "BitLocker activo en volúmenes G y H",
+      "capacidad_ram": {
+        "capacidad": "128 GB DDR4 ECC",
+        "estado actual": "Excelente"
+      },
+      "disco_duro": {
+        "capacidad": "2x 480GB SSD SATA RAID 1 (SO) + 4x 1.2TB SAS 10K RPM RAID 5 (Datos)",
+        "estado actual": "Óptimo (RAID 5 funcional sin alertas)"
+      },
+      "procesador": {
+        "capacidad": "2x Intel Xeon Silver 4214R (12 núcleos, 2.40 GHz)",
+        "estado actual": "Estable"
+      },
+      "gpu": {
+        "capacidad": "Integrada Matrox G200",
+        "estado actual": "Funcional"
+      },
+      "fuentes_de_poder": {
+        "capacidad": "Redundante Dual (1+1) de 750W Hot-Plug",
+        "estado actual": "Óptimo (Ambas activas y conectadas a UPS)"
+      }
+    },
+    "capacidad": "Volumen G (Datos y Logs) / Volumen H (Backups locales)",
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "LAN Ethernet",
+      "puerto": "Desconocido",
+      "ID": "SW_SG3452"
+    }
+  },
+  {
+    "id": "SRV-APP-01",
+    "nombre": "svrpremiumapp",
+    "tipo": "Servidor de Aplicaciones",
+    "descripcion": "Encargado de procesar la lógica de negocio, publicar entornos de trabajo remoto (RDP) y centralizar la comunicación con periféricos y cajas.",
+    "modelo": "Dell PowerEdge R730",
+    "sistema_operativo": "Windows Server 2019 (Hyper-V habilitado)",
+    "ip_local": "192.168.1.11",
+    "segmentacion": "VLAN 10 (Servidores)",
+    "especificaciones": {
+      "servicios_expuestos": [
+        "ICGRemote",
+        "RDP (Puerto 3389)"
+      ],
+      "seguridad": "Secure Boot verificado y activo",
+      "capacidad_ram": {
+        "capacidad": "64 GB DDR4 ECC",
+        "estado actual": "Excelente (Soporta carga de VMs)"
+      },
+      "disco_duro": {
+        "capacidad": "2x 600GB SAS 10K RPM RAID 1 (SO y VMs)",
+        "estado actual": "Óptimo (Salud física al 98%)"
+      },
+      "procesador": {
+        "capacidad": "2x Intel Xeon E5-2630 v4 (10 núcleos, 2.20 GHz)",
+        "estado actual": "Estable"
+      },
+      "gpu": {
+        "capacidad": "Integrada Matrox G200",
+        "estado actual": "Funcional"
+      },
+      "fuentes_de_poder": {
+        "capacidad": "Redundante Dual (1+1) de 495W Hot-Plug",
+        "estado actual": "Excelente (Monitoreado por iDRAC)"
+      }
+    },
+    "capacidad": "Soporta múltiples Máquinas Virtuales (VM) de contabilidad y administración",
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "LAN Ethernet",
+      "puerto": "Desconocido",
+      "ID": "SW_SG3452"
+    }
+  },
+  {
+    "id": "SRV-OPS-01",
+    "nombre": "srv-ops-premium",
+    "tipo": "Servidor de Operaciones",
+    "descripcion": "Hardware complementario asignado al soporte de operaciones generales de la empresa y herramientas de optimización.",
+    "modelo": "Pendiente por registrar",
+    "sistema_operativo": "Windows Server / Linux (por definir)",
+    "ip_local": "192.168.1.12",
+    "segmentacion": "VLAN 10 (Servidores)",
+    "especificaciones": {
+      "uso": "Servicios corporativos secundarios",
+      "capacidad_ram": {
+        "capacidad": "16 GB DDR4",
+        "estado actual": "Funcional"
+      },
+      "disco_duro": {
+        "capacidad": "1x 1TB SATA 7.2K RPM",
+        "estado actual": "Advertencia (Sin redundancia RAID)"
+      },
+      "procesador": {
+        "capacidad": "1x Intel Xeon E-2224 (4 núcleos, 3.40 GHz)",
+        "estado actual": "Estable"
+      },
+      "gpu": {
+        "capacidad": "Integrada",
+        "estado actual": "Funcional"
+      },
+      "fuentes_de_poder": {
+        "capacidad": "Simple de 350W Cabled",
+        "estado actual": "Riesgo de apagado (Fuente única no redundante)"
+      }
+    },
+    "capacidad": "Almacenamiento y procesamiento de soporte",
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "LAN Ethernet",
+      "puerto": "Desconocido",
+      "ID": "SW_SG3452"
+    }
+  },
+  {
+    "id": "STG-EXT-01",
+    "nombre": "Discos Duros Externos de Continuidad",
+    "tipo": "Almacenamiento de Respaldo",
+    "descripcion": "Unidades de almacenamiento extraíbles utilizadas para cumplir el protocolo de respaldos 3-2-1. Mitigan riesgos de Ransomware mediante desconexión física diaria.",
+    "modelo": "Discos Externos Robustecidos USB 3.0",
+    "sistema_operativo": "N/A (Sistemas de archivos NTFS cifrado)",
+    "ip_local": "N/A",
+    "segmentacion": "N/A (Físico)",
+    "especificaciones": {
+      "protocolo": "Desconexión manual inmediata tras finalizar backup"
+    },
+    "capacidad": "4 TB a 8 TB por unidad",
+    "Conexion": {
+      "tipo": "Hijo",
+      "medio": "USB",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "MOB-INV-01",
+    "nombre": "Terminales Móviles de Inventario (TeleStock)",
+    "tipo": "Dispositivo Móvil",
+    "descripcion": "Dispositivos de mano (Handhelds) utilizados en bodegas y pasillos para el control de inventarios, conteos físicos y traslados.",
+    "modelo": "Zebra / Honeywell Enterprise Handheld",
+    "sistema_operativo": "Android Enterprise / Windows CE",
+    "ip_local": "Rango dinámico vía Wi-Fi corporativo",
+    "segmentacion": "VLAN 20 (Operación)",
+    "especificaciones": {
+      "lector": "Escáner de código de barras 1D/2D integrado",
+      "sincronizacion": "Intercambio de ficheros de datos con el servidor central"
+    },
+    "capacidad": "Batería de larga duración para turnos de 8+ horas",
+    "Conexion": {
+      "tipo": "Hijo",
+      "medio": "LAN Wifi",
+      "puerto": "Desconocido",
+      "ID": "WIFI_EAP610"
+    }
+  },
+  {
+    "id": "POS-ALTABLANCA-CAJA01",
+    "nombre": "CAJA01",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede ALTABLANCA.",
+    "sede": "ALTABLANCA",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (ALTABLANCA)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-ALTABLANCA-CAJA02",
+    "nombre": "CAJA02",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede ALTABLANCA.",
+    "sede": "ALTABLANCA",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (ALTABLANCA)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-BATAN-CAJA02",
+    "nombre": "CAJA02",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede BATAN.",
+    "sede": "BATAN",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (BATAN)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-BATAN-CAJA01",
+    "nombre": "CAJA01",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede BATAN.",
+    "sede": "BATAN",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (BATAN)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CAJICA-CAJA02",
+    "nombre": "CAJA02",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CAJICA.",
+    "sede": "CAJICA",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CAJICA)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CAJICA-CAJA04",
+    "nombre": "CAJA04",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CAJICA.",
+    "sede": "CAJICA",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CAJICA)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CAJICA-CAJA-UNDEF-1",
+    "nombre": "Caja sin nombrar 1 (CAJICA)",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CAJICA.",
+    "sede": "CAJICA",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CAJICA)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CAJICA-CAJA03",
+    "nombre": "CAJA03",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CAJICA.",
+    "sede": "CAJICA",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CAJICA)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CEDRITOS1-CAJA02",
+    "nombre": "CAJA02",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CEDRITOS 1.",
+    "sede": "CEDRITOS 1",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CEDRITOS 1)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CEDRITOS1-CAJA01",
+    "nombre": "CAJA01",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CEDRITOS 1.",
+    "sede": "CEDRITOS 1",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CEDRITOS 1)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CEDRITOS2-CAJA01",
+    "nombre": "CAJA01",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CEDRITOS 2.",
+    "sede": "CEDRITOS 2",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CEDRITOS 2)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CEDRITOS2-CAJA02",
+    "nombre": "CAJA02",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CEDRITOS 2.",
+    "sede": "CEDRITOS 2",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CEDRITOS 2)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CEDRITOS2-CAJA03",
+    "nombre": "CAJA03",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CEDRITOS 2.",
+    "sede": "CEDRITOS 2",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CEDRITOS 2)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CEDRITOS3-CAJA02",
+    "nombre": "CAJA02",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CEDRITOS 3.",
+    "sede": "CEDRITOS 3",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CEDRITOS 3)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CEDRITOS3-CAJA01",
+    "nombre": "CAJA01",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CEDRITOS 3.",
+    "sede": "CEDRITOS 3",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CEDRITOS 3)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CEDRITOS3-CAJA04",
+    "nombre": "CAJA04",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CEDRITOS 3.",
+    "sede": "CEDRITOS 3",
+    "contrasena": "CLAVE DIFERENTE",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CEDRITOS 3)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CHIA2-CAJA03",
+    "nombre": "CAJA03",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CHIA 2.",
+    "sede": "CHIA 2",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CHIA 2)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CHIA2-CAJA04",
+    "nombre": "CAJA04",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CHIA 2.",
+    "sede": "CHIA 2",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CHIA 2)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CHIA2-CAJA05",
+    "nombre": "CAJA05",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CHIA 2.",
+    "sede": "CHIA 2",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CHIA 2)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CHIA2-CAJA06",
+    "nombre": "CAJA06",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CHIA 2.",
+    "sede": "CHIA 2",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CHIA 2)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CHIA2-CAJA02",
+    "nombre": "CAJA02",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CHIA 2.",
+    "sede": "CHIA 2",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CHIA 2)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CHICO104-CAJA06",
+    "nombre": "CAJA06",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CHICO 104.",
+    "sede": "CHICO 104",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CHICO 104)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CHICO104-CAJA05",
+    "nombre": "CAJA05",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CHICO 104.",
+    "sede": "CHICO 104",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CHICO 104)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CHICO104-CAJA02",
+    "nombre": "CAJA02",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CHICO 104.",
+    "sede": "CHICO 104",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CHICO 104)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CHICO104-CAJA03",
+    "nombre": "CAJA03",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CHICO 104.",
+    "sede": "CHICO 104",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CHICO 104)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CHICO104-CAJA01",
+    "nombre": "CAJA01",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CHICO 104.",
+    "sede": "CHICO 104",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CHICO 104)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CHICO104-CAJA04",
+    "nombre": "CAJA04",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CHICO 104.",
+    "sede": "CHICO 104",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CHICO 104)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CHICOCL90-CAJA01",
+    "nombre": "CAJA01",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CHICO CL 90.",
+    "sede": "CHICO CL 90",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CHICO CL 90)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CHICOCL90-CAJA02",
+    "nombre": "CAJA02",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CHICO CL 90.",
+    "sede": "CHICO CL 90",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CHICO CL 90)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CHICOCL90-CAJA03",
+    "nombre": "CAJA03",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CHICO CL 90.",
+    "sede": "CHICO CL 90",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CHICO CL 90)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CHICOCL90-CAJA04",
+    "nombre": "CAJA04",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CHICO CL 90.",
+    "sede": "CHICO CL 90",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CHICO CL 90)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-CHICOCL90-CAJA05",
+    "nombre": "CAJA05",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede CHICO CL 90.",
+    "sede": "CHICO CL 90",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (CHICO CL 90)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-COLINA-CAJA-UNDEF-1",
+    "nombre": "Caja sin nombrar 1 (COLINA)",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede COLINA.",
+    "sede": "COLINA",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (COLINA)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-COLINA-CAJA-UNDEF-2",
+    "nombre": "Caja sin nombrar 2 (COLINA)",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede COLINA.",
+    "sede": "COLINA",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (COLINA)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-COLINA-CAJA-UNDEF-3",
+    "nombre": "Caja sin nombrar 3 (COLINA)",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede COLINA.",
+    "sede": "COLINA",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (COLINA)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-COTA1-CAJA01",
+    "nombre": "CAJA01",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede COTA 1.",
+    "sede": "COTA 1",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (COTA 1)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-COTA1-CAJA02",
+    "nombre": "CAJA02",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede COTA 1.",
+    "sede": "COTA 1",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (COTA 1)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-COTA1-CAJA03",
+    "nombre": "CAJA03",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede COTA 1.",
+    "sede": "COTA 1",
+    "contrasena": "Premium_123",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (COTA 1)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-COTA2-CAJA02",
+    "nombre": "CAJA02",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede COTA 2.",
+    "sede": "COTA 2",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (COTA 2)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-COTA2-CAJA01",
+    "nombre": "CAJA01",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede COTA 2.",
+    "sede": "COTA 2",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (COTA 2)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-FACATATIVA-CAJA-UNDEF-1",
+    "nombre": "Caja sin nombrar 1 (FACATATIVA)",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede FACATATIVA.",
+    "sede": "FACATATIVA",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (FACATATIVA)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-FACATATIVA-CAJA01",
+    "nombre": "CAJA01",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede FACATATIVA.",
+    "sede": "FACATATIVA",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (FACATATIVA)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-HAYUELOS-CAJA05",
+    "nombre": "CAJA05",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede HAYUELOS.",
+    "sede": "HAYUELOS",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (HAYUELOS)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-HAYUELOS-CAJA03",
+    "nombre": "CAJA03",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede HAYUELOS.",
+    "sede": "HAYUELOS",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (HAYUELOS)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-HAYUELOS-CAJA04",
+    "nombre": "CAJA04",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede HAYUELOS.",
+    "sede": "HAYUELOS",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (HAYUELOS)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-HAYUELOS-CAJA06",
+    "nombre": "CAJA06",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede HAYUELOS.",
+    "sede": "HAYUELOS",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (HAYUELOS)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-HAYUELOS-CAJA02",
+    "nombre": "CAJA02",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede HAYUELOS.",
+    "sede": "HAYUELOS",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (HAYUELOS)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-HAYUELOS-CAJA01",
+    "nombre": "CAJA01",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede HAYUELOS.",
+    "sede": "HAYUELOS",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (HAYUELOS)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-LIJACA-CAJA01",
+    "nombre": "CAJA01",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede LIJACA.",
+    "sede": "LIJACA",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (LIJACA)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-LIJACA-CAJA02",
+    "nombre": "CAJA02",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede LIJACA.",
+    "sede": "LIJACA",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (LIJACA)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-LIJACA-CAJA03",
+    "nombre": "CAJA03",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede LIJACA.",
+    "sede": "LIJACA",
+    "contrasena": "Premium_123",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (LIJACA)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-LIJACA-CAJA04",
+    "nombre": "CAJA04",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede LIJACA.",
+    "sede": "LIJACA",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (LIJACA)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-LIJACA-CAJA05",
+    "nombre": "CAJA05",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede LIJACA.",
+    "sede": "LIJACA",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (LIJACA)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-LIJACA-CAJA06",
+    "nombre": "CAJA06",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede LIJACA.",
+    "sede": "LIJACA",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (LIJACA)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-LIJACA-CAJA07",
+    "nombre": "CAJA07",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede LIJACA.",
+    "sede": "LIJACA",
+    "contrasena": "Premium_123",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (LIJACA)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-MAZUREN-CAJA01",
+    "nombre": "CAJA01",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede MAZUREN.",
+    "sede": "MAZUREN",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (MAZUREN)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-MAZUREN-CAJA02",
+    "nombre": "CAJA02",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede MAZUREN.",
+    "sede": "MAZUREN",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (MAZUREN)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-MAZUREN-CAJA03",
+    "nombre": "CAJA03",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede MAZUREN.",
+    "sede": "MAZUREN",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (MAZUREN)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-ORQUIDEAS-CAJA02",
+    "nombre": "CAJA02",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede ORQUIDEAS.",
+    "sede": "ORQUIDEAS",
+    "contrasena": "Premium_123",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (ORQUIDEAS)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-ORQUIDEAS-CAJA04",
+    "nombre": "CAJA04",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede ORQUIDEAS.",
+    "sede": "ORQUIDEAS",
+    "contrasena": "Premium_123",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (ORQUIDEAS)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-ORQUIDEAS-CAJA03",
+    "nombre": "CAJA03",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede ORQUIDEAS.",
+    "sede": "ORQUIDEAS",
+    "contrasena": "Premium_123",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (ORQUIDEAS)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-ORQUIDEAS-CAJA01",
+    "nombre": "CAJA01",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede ORQUIDEAS.",
+    "sede": "ORQUIDEAS",
+    "contrasena": "Premium_123",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (ORQUIDEAS)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-PAGUEMENO2-CAJA03",
+    "nombre": "CAJA03",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede PAGUEMENO2.",
+    "sede": "PAGUEMENO2",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (PAGUEMENO2)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-PAGUEMENOS1-CAJA02",
+    "nombre": "CAJA02",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede PAGUEMENOS 1.",
+    "sede": "PAGUEMENOS 1",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (PAGUEMENOS 1)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-PAGUEMENOS1-CAJA01",
+    "nombre": "CAJA01",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede PAGUEMENOS 1.",
+    "sede": "PAGUEMENOS 1",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (PAGUEMENOS 1)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-PAGUEMENOS2-CAJA03",
+    "nombre": "CAJA03",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede PAGUEMENOS 2.",
+    "sede": "PAGUEMENOS 2",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (PAGUEMENOS 2)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-PAGUEMENOS2-CAJA02",
+    "nombre": "CAJA02",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede PAGUEMENOS 2.",
+    "sede": "PAGUEMENOS 2",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (PAGUEMENOS 2)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-PORTALES-CAJA02",
+    "nombre": "CAJA02",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede PORTALES.",
+    "sede": "PORTALES",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (PORTALES)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-PORTALES-CAJA-UNDEF-1",
+    "nombre": "Caja sin nombrar 1 (PORTALES)",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede PORTALES.",
+    "sede": "PORTALES",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (PORTALES)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-PORTALES-CAJA-UNDEF-2",
+    "nombre": "Caja sin nombrar 2 (PORTALES)",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede PORTALES.",
+    "sede": "PORTALES",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (PORTALES)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-PRADO-CAJA-UNDEF-1",
+    "nombre": "Caja sin nombrar 1 (PRADO)",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede PRADO.",
+    "sede": "PRADO",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (PRADO)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-PRADO-CAJA-UNDEF-2",
+    "nombre": "Caja sin nombrar 2 (PRADO)",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede PRADO.",
+    "sede": "PRADO",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (PRADO)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-PRADO-CAJA02",
+    "nombre": "CAJA02",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede PRADO.",
+    "sede": "PRADO",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (PRADO)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-PRADO-CAJA-UNDEF-3",
+    "nombre": "Caja sin nombrar 3 (PRADO)",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede PRADO.",
+    "sede": "PRADO",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (PRADO)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-SANPEDRO-CAJA03",
+    "nombre": "CAJA03",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede SAN PEDRO.",
+    "sede": "SAN PEDRO",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (SAN PEDRO)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-SANPEDRO-CAJA01",
+    "nombre": "CAJA01",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede SAN PEDRO.",
+    "sede": "SAN PEDRO",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (SAN PEDRO)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-SANPEDRO-CAJA02",
+    "nombre": "CAJA02",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede SAN PEDRO.",
+    "sede": "SAN PEDRO",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (SAN PEDRO)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-SANPEDRO-CAJA04",
+    "nombre": "CAJA04",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede SAN PEDRO.",
+    "sede": "SAN PEDRO",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (SAN PEDRO)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-TABIO-CAJA02",
+    "nombre": "CAJA02",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede TABIO.",
+    "sede": "TABIO",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (TABIO)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-TABIO-CAJA03",
+    "nombre": "CAJA03",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede TABIO.",
+    "sede": "TABIO",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (TABIO)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-TABIO-CAJA01",
+    "nombre": "CAJA01",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede TABIO.",
+    "sede": "TABIO",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (TABIO)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-TENJO-CAJA03",
+    "nombre": "CAJA03",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede TENJO.",
+    "sede": "TENJO",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (TENJO)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-TENJO-CAJA01",
+    "nombre": "CAJA01",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede TENJO.",
+    "sede": "TENJO",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (TENJO)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  },
+  {
+    "id": "POS-TENJO-CAJA02",
+    "nombre": "CAJA02",
+    "tipo": "Terminal de Punto de Venta (TPV)",
+    "descripcion": "Punto de venta físico en la sede TENJO.",
+    "sede": "TENJO",
+    "contrasena": "Soporte*2025",
+    "estado_operativo": "Activo",
+    "sistema_operativo": "Windows 10 IoT / Pro",
+    "ip_local": "Rango dinámico local (TENJO)",
+    "segmentacion": "VLAN 20 (Operación diaria - Aisladas de internet directo)",
+    "especificaciones": {
+      "software_base": "ICG FrontCS / Front Retail",
+      "sincronizacion": "Vía ICGRemote con el servidor svrpremiumapp"
+    },
+    "Conexion": {
+      "tipo": "Padre",
+      "medio": "VPN",
+      "puerto": "Desconocido",
+      "ID": "SRV-BD-01"
+    }
+  }
+]

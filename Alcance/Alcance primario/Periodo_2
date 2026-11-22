@@ -1,0 +1,14 @@
+
+
+### Alcance por Componente
+* **Middleware ICG Empaquetado:**
+  * Transformación del código a un instalador estándar (.msi o servicio de Windows).
+  * Interfaz gráfica de configuración (*Wizard*) para ingresar credenciales locales y la API Key de la plataforma nube.
+* **Core Fiscal Multi-Tenant (Nube):**
+  * **Bóveda de Certificados Cifrada:** Gestión segura para que cada cliente cargue su propia firma digital de forma aislada.
+  * Orquestación dinámica de tokens de la DIAN (`SoftwareID`, `PIN`, resoluciones) según el `tenant_id`.
+  * Panel de SuperAdministrador para control de licencias, consumos y facturación del servicio.
+* **Base de Datos & Almacenamiento:**
+  * Aislamiento lógico de datos mediante indexación obligatoria por `tenant_id`.
+  * Migración de almacenamiento de XMLs históricos (5 años legales) a repositorios de objetos optimizados (ej. AWS S3).
+* **Visualizador Cliente Final:** Login seguro (JWT) para que los contadores de cada empresa externa consulten y gestionen únicamente sus documentos emitidos.
